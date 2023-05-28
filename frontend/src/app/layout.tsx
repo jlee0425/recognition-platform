@@ -11,9 +11,10 @@ const inter = Inter({ subsets: ['latin'] });
 const rootLayout = {
   header: css({
     width: '100%',
+    padding: '5px 20px',
   }),
   main: css({
-    height: 'calc(100% - 54px)',
+    height: 'calc(100% - 64px)',
   }),
   logo: css({
     objectFit: 'contain',
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <title>Recognition Program</title>
       </head>
       <body className={inter.className} >
         <header css={rootLayout.header}>

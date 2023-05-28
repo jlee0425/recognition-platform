@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "username": "staff1",
+    "profilePicture": "/logo.png",
+    "department": "Business Development Representative",
+    "location": "Tokyo, Japan",
+    "description": "Ea veniam eu culpa aliquip Lorem dolore veniam. Officia consequat consectetur exercitation sunt esse non laboris sunt culpa adipisicing id et culpa. Quis culpa do non id qui et consectetur laborum in laborum magna commodo ea magna. Eiusmod eiusmod occaecat ullamco aliqua irure sunt sint sit do. Fugiat id veniam dolore excepteur nisi aliquip labore occaecat proident. Excepteur officia nisi nisi elit."
+  },
+  {
+    "id": 2,
+    "username": "staff2",
+    "profilePicture": "/logo.png",
+    "department": "Human Resources",
+    "location": "Yokohama, Japan",
+    "description": "Pariatur esse laborum nulla do."
+  },
+  {
+    "id": 3,
+    "username": "staff3",
+    "profilePicture": "/logo.png",
+    "department": "Frontend Developer",
+    "location": "Singapore",
+    "description": "Quis enim excepteur esse amet occaecat est labore officia aliquip sunt laboris ullamco. Ut laborum nulla velit tempor ut dolor ullamco Lorem deserunt occaecat do ullamco anim. Eiusmod occaecat dolor tempor occaecat commodo."
+  },
+  {
+    "id": 4,
+    "username": "staff4",
+    "profilePicture": "/logo.png",
+    "department": "Backend Developer",
+    "location": "Hawaii, US",
+    "description": "Non id sit id ullamco. Qui enim ex ea veniam consectetur minim aliquip. Qui cillum reprehenderit ullamco eiusmod ut labore exercitation ex minim aute ullamco enim. Id nostrud id ad nulla nisi voluptate magna ad. Nulla amet anim amet quis dolore reprehenderit eiusmod quis consequat. Do quis non sint qui qui anim proident excepteur sunt eiusmod aliqua consequat ullamco."
+  },
+  {
+    "id": 5,
+    "username": "staff5",
+    "profilePicture": "/logo.png",
+    "department": "DevOps",
+    "location": "Malaga, Spain",
+    "description": "Officia aliqua proident eiusmod ad Lorem nulla nostrud. Eu ut incididunt commodo ex ipsum nulla duis nisi minim amet tempor proident. Voluptate excepteur est ea eiusmod deserunt adipisicing et mollit dolore cillum eu nulla. Deserunt in laboris eu quis culpa ea. Culpa ea ipsum anim ad fugiat nulla qui cupidatat deserunt consequat enim proident."
+  }
+]

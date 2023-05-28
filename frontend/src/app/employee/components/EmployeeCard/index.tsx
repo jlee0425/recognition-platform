@@ -1,13 +1,26 @@
 'use client';
 
 import React from 'react';
-import {css} from '@emotion/react';
+import { css } from '@emotion/react';
+import { User } from '@/src/types/user';
+import EmployeeCardWrapper from '../EmployeeCardWrapper';
 
-interface Props {}
+const descCss = css({
+  fontSize: '14px',
+  overflowY: 'auto'
+});
 
-const EmployeeCard = (props: Props) => {
+interface Props extends User {}
+
+const EmployeeCard = ({
+  description, ...props
+}: Props) => {
   return (
-    <div>EmployeeCard</div>
+    <EmployeeCardWrapper {...props}>
+      <p css={descCss}>
+        {description}
+      </p>
+    </EmployeeCardWrapper>
   )
 }
 

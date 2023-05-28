@@ -1,0 +1,71 @@
+import { User } from '@/src/types/user';
+import { css } from '@emotion/react';
+import Image from 'next/image';
+import React, { ReactNode } from 'react'
+
+const cardCss = {
+  wrapper: css({
+    width: '100%',
+    height: '450px',
+    padding: '15px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    rowGap: '8px',
+    cursor: 'pointer',
+    border: '1px solid #cac8c8',
+    borderRadius: '8px',
+
+    '&:hover': css({
+      transform: 'scale(1.02)',
+      transition: '0.1s ease-in-out',
+    })
+  }),
+  photo: css({
+    position: 'relative',
+    borderRadius: '100%',
+    border: '1px solid #cac8c8',
+    width: '160px',
+    height: '160px',
+    marginBottom: '12px',
+    flexShrink: 0,
+    '> img': css({
+      objectFit: 'contain'
+    })
+  }),
+  name: css({
+    fontSize: '24px',
+  }),
+  info: css({
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    rowGap: '8px',
+    fontSize: '18px',
+    marginBottom: '8px',
+  }),
+}
+
+interface Props extends Omit<User, 'description'> {
+  children: ReactNode;
+}
+
+const EmployeeCardWrapper = ({
+  username, profilePicture, department, location, children
+}: Props) => {
+  return (
+    <div css={cardCss.wrapper}>
+      <div css={cardCss.photo}>
+        <Image src={profilePicture} alt={`${username}-photo`} fill />
+      </div>
+      <div css={cardCss.name}>{username}</div>
+      <div css={cardCss.info}>
+        <p>{department}</p>
+        <p>{location}</p>
+      </div>
+      {children}
+    </div>
+  )
+}
+
+export default EmployeeCardWrapper
