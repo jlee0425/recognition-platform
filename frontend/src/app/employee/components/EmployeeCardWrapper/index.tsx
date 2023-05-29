@@ -40,9 +40,11 @@ const cardCss = {
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
-    rowGap: '8px',
-    fontSize: '18px',
+    rowGap: '2px',
+    fontSize: '16px',
     marginBottom: '8px',
+    maxWidth: '75%',
+    height: '60px',
   }),
 }
 
@@ -60,8 +62,8 @@ const EmployeeCardWrapper = ({
       </div>
       <div css={cardCss.name}>{username}</div>
       <div css={cardCss.info}>
-        <p>{department}</p>
         <p>{location}</p>
+        <p>{department}</p>
       </div>
       {children}
     </div>

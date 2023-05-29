@@ -6,10 +6,9 @@ import Button from '@/src/components/Button';
 import { css } from '@emotion/react';
 import MockStaff from '@/src/__mock__/user.json';
 
-import EmployeeCard from './components/EmployeeCard';
-
 
 import type { User } from '@/src/types/user';
+import Recongnition from './components/Recognition';
 
 const pageCss = {
   recogSection: css({
@@ -57,7 +56,9 @@ const EmployeePage = () => {
       </section>
       <h3 css={pageCss.listSectionTitle}>Recognitions</h3>
       <section css={pageCss.listSection}>
-        {MockStaff.map((staff: User) => <EmployeeCard key={staff.id} {...staff}/>)}
+        {MockStaff.map((staff: User) => (
+          <Recongnition key={staff.id} {...staff} recognizedValues={['CONSTRUCTIVE', 'EASY_GOING', 'LEADER', 'LEARNER', 'PERFORMER']}/>
+        ))}
       </section>
     </>
   )
