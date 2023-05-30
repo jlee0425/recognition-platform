@@ -43,10 +43,17 @@ const modalProps = {
 }
 
 type RecogStep = 0 | 1 | 2;
-interface Props extends Pick<ModalProps, 'isOpen' | 'onRequestClose'> {}
+interface Props extends Pick<ModalProps, 'isOpen'> {
+  onClose: () => void;
+}
 
-const RecognitionModal = ({ isOpen, onRequestClose }: Props) => {
+const RecognitionModal = ({ isOpen, onClose }: Props) => {
   const [recogStep, setRecogStep] = useState<RecogStep>(0);
+
+  const handleClose = () => {
+    setRecogStep(0);
+    onClose();
+  }
 
   const handleClickPrev = () => setRecogStep(prev => (prev - 1) as RecogStep);
   const handleClickNext = () => setRecogStep(prev => (prev + 1) as RecogStep);
@@ -54,7 +61,7 @@ const RecognitionModal = ({ isOpen, onRequestClose }: Props) => {
   return (
     <ReactModal
     isOpen={isOpen}
-    onRequestClose={onRequestClose}
+    onRequestClose={handleClose}
     shouldCloseOnEsc
     shouldCloseOnOverlayClick
     style={{
@@ -72,7 +79,7 @@ const RecognitionModal = ({ isOpen, onRequestClose }: Props) => {
           <Button 
             buttonType='primary'
             label="close" 
-            onClick={onRequestClose} 
+            onClick={handleClose} 
           />
         </header>
         <main css={modalProps.modalBody}>
@@ -84,7 +91,7 @@ const RecognitionModal = ({ isOpen, onRequestClose }: Props) => {
               <RecogValue onClickNext={handleClickNext} />
             )}
             {recogStep === 2 && (
-              <RecogForm onCloseModal={onRequestClose} />
+              <RecogForm onCloseModal={onClose} />
             )}
           </RecogModalProvider>
         </main>

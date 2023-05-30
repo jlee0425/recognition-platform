@@ -11,6 +11,8 @@ const employeeRowCss = {
     border: '1px solid #e0e0e0',
     borderRadius: '8px',
     gap: '12px',
+    cursor: 'pointer',
+    
     '> img': {
       objectFit: 'contain',
       borderRadius: '100%',

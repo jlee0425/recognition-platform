@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { css } from '@emotion/react';
 
 import MockStaff from '@/src/__mock__/user.json';
@@ -11,7 +11,7 @@ const listCss = {
     padding: '20px 0',
     flex: 1,
     '> div:not(last-of-type)': {
-      marginBottom: '12px',
+      marginBottom: '20px',
     }
   }),
 }
@@ -21,14 +21,20 @@ interface Props {
 }
 
 const EmployeeList = ({ onClickNext }: Props) => {
-  const { setUser } = useRecogState();
+  const { setUser, handleRemoveValues } = useRecogState();
 
   const handleClickUser = (user: User) => () => {
     setUser(user);
     onClickNext();
   }
 
-  return (
+  useEffect(() => {
+    // reset step2 on mount
+    handleRemoveValues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+    return (
     <div css={listCss.wrapper}>
       {MockStaff.map(staff => (
         <EmployeeRow key={staff.id} {...staff} onClickNext={handleClickUser(staff)} />

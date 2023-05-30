@@ -14,7 +14,7 @@ const chipCss = css({
   borderRadius: '4px',
 });
 
-const CHIP_COLORS: Record<RecognitionValue, string> = {
+export const CHIP_COLORS: Record<RecognitionValue, string> = {
   LEADER: '#ff0101',
   PERFORMER: '#0633ff',
   TEAM_PLAYER: '#344472',

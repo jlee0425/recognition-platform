@@ -7,13 +7,15 @@ const useModalState = () => {
   const [recogValues, setRecogValues] = useState<RecognitionValue[]>([]);
 
   const handleRemoveUser = useCallback(() => setUser(undefined), []);
+  const handleRemoveValues = useCallback(() => setRecogValues([]), []);
 
   return {
     user,
     setUser,
     recogValues,
     setRecogValues,
-    handleRemoveUser
+    handleRemoveUser,
+    handleRemoveValues
   }
 }
 

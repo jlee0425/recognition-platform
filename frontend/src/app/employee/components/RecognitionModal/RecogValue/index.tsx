@@ -50,10 +50,6 @@ const RecogValue = ({ onClickNext }: Props) => {
     setRecogValues(prev => prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]);
   }
 
-  useEffect(() => {
-    return () => setRecogValues([]);
-  }, [setRecogValues]);
-
   return (
     <div css={recogValueCss.wrapper}>
       {user && <EmployeeCard {...user} />}

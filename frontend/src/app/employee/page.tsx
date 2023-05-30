@@ -75,7 +75,7 @@ const EmployeePage = () => {
       </section>
       <RecognitionModal 
         isOpen={isOpenModal}
-        onRequestClose={handleCloseModal}
+        onClose={handleCloseModal}
       />
     </>
   )
