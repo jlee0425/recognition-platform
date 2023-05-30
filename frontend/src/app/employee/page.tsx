@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import Button from '@/src/components/Button';
 import { css } from '@emotion/react';
@@ -9,6 +9,7 @@ import MockStaff from '@/src/__mock__/user.json';
 
 import type { User } from '@/src/types/user';
 import Recongnition from './components/Recognition';
+import RecognitionModal from './components/RecognitionModal';
 
 const pageCss = {
   recogSection: css({
@@ -46,20 +47,36 @@ const pageCss = {
 }
 
 const EmployeePage = () => {
+  const [isOpenModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <>
       <section css={pageCss.recogSection}>
         <h3>Give applaudes to your fellow employees.</h3>
         <p>Amplify key behaviors and company values while fostering connection across distributed teams.</p>
         <Button 
-          label="Click to Applaude" type="button" buttonType='primary'/>
+          label="Click to Applaude" 
+          onClick={handleOpenModal}
+          type="button" 
+          buttonType='primary'
+        />
       </section>
       <h3 css={pageCss.listSectionTitle}>Recognitions</h3>
       <section css={pageCss.listSection}>
         {MockStaff.map((staff: User) => (
-          <Recongnition key={staff.id} {...staff} recognizedValues={['CONSTRUCTIVE', 'EASY_GOING', 'LEADER', 'LEARNER', 'PERFORMER']}/>
+          <Recongnition 
+            key={staff.id} 
+            {...staff} 
+            recognizedValues={['CONSTRUCTIVE', 'EASY_GOING', 'LEADER', 'LEARNER', 'PERFORMER']}
+          />
         ))}
       </section>
+      <RecognitionModal 
+        isOpen={isOpenModal}
+        onRequestClose={handleCloseModal}
+      />
     </>
   )
 }

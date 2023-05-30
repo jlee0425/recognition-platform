@@ -60,7 +60,7 @@ const EmployeeCardWrapper = ({
       <div css={cardCss.photo}>
         <Image src={profilePicture} alt={`${username}-photo`} fill />
       </div>
-      <div css={cardCss.name}>{username}</div>
+      <div css={cardCss.name}>{username.firstName} {username.lastName}</div>
       <div css={cardCss.info}>
         <p>{location}</p>
         <p>{department}</p>

@@ -4,7 +4,7 @@ import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 const baseCss = ({
   padding: '12px',
   outline: 'none',
-  border: '1px solid #0e9bca',
+  border: '1px solid #1556cf',
   borderRadius: '8px',
   fontWeight: 'bold',
   fontSize: '16px',
@@ -12,14 +12,14 @@ const baseCss = ({
 })
 const primary = css({
   ...baseCss,
-  color: '#0e9bca',
-  backgroundColor: '#ececec',
+  color: '#1556cf',
+  backgroundColor: '#f7f7f7',
 });
 
 const secondary = css({
   ...baseCss,
   color: '#ececec',
-  backgroundColor: '#0e9bca',
+  backgroundColor: '#1556cf',
   borderColor: '#ececec',
 })
 

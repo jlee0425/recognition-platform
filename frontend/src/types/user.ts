@@ -1,6 +1,9 @@
 export interface User {
   id: number;
-  username: string;
+  username: {
+    firstName: string;
+    lastName: string;
+  }
   profilePicture: string;
   department: string;
   location: string;

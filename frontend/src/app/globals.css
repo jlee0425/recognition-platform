@@ -6,4 +6,8 @@
 
 body {
   height: 100vh;
+
+  &.ReactModal__Body--open {
+    overflow: hidden;
+  }
 }

@@ -1,6 +1,12 @@
-import { ReconitionValue } from '@/src/types/recognition';
 import { css } from '@emotion/react';
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
+import {DetailedHTMLProps} from 'react';
+
+export const RECOGNITION_VALUES = [
+  'LEADER', 'PERFORMER', 'TEAM_PLAYER', 'EASY_GOING', 'LISTENER', 'LEARNER', 'POSITIVE', 'CONSTRUCTIVE'
+] as const;
+
+export type RecognitionValue = typeof RECOGNITION_VALUES[number];
 
 const chipCss = css({
   padding: '2px 4px',
@@ -8,7 +14,7 @@ const chipCss = css({
   borderRadius: '4px',
 });
 
-const CHIP_COLORS: Record<ReconitionValue, string> = {
+const CHIP_COLORS: Record<RecognitionValue, string> = {
   LEADER: '#ff0101',
   PERFORMER: '#0633ff',
   TEAM_PLAYER: '#344472',
@@ -20,17 +26,21 @@ const CHIP_COLORS: Record<ReconitionValue, string> = {
 };
 
 interface Props {
-  chipType: ReconitionValue;
+  chipType: RecognitionValue;
+  selected?: boolean;
+  onClick: () => void;
 }
 
-const Chip = ({ chipType }: Props) => {
+const Chip = ({ chipType, selected, onClick }: Props) => {
   return (
     <span 
       css={chipCss} 
       style={{
         borderColor: CHIP_COLORS[chipType],
-        color: CHIP_COLORS[chipType]
+        color: selected ? '#ececec' : CHIP_COLORS[chipType],
+        backgroundColor: selected ? CHIP_COLORS[chipType] : 'transparent',
       }}
+      onClick={onClick}
     >
       {chipType}
     </span>

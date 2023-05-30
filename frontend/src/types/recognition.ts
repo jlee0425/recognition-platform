@@ -7,12 +7,3 @@ export interface Recognition extends User {
   title: string;
   description: string;
 }
-
-export type ReconitionValue = 'LEADER'
-| 'PERFORMER'
-| 'TEAM_PLAYER'
-| 'EASY_GOING'
-| 'LISTENER'
-| 'LEARNER'
-| 'POSITIVE'
-| 'CONSTRUCTIVE';
