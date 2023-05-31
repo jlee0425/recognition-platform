@@ -31,9 +31,10 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "frontend/**/*.ts",
+    "frontend/**/*.tsx",
+    ".next/types/**/*.ts",
+    "emotionProps.d.ts"
   ],
   "exclude": [
     "node_modules",
