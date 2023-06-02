@@ -27,7 +27,13 @@ export class UserService {
     });
   }
 
-  async updateUserProfile(id: number, params: UpdateUserParams) {
-    return this.userRepository.update({ id }, params);
+  async updateUserProfile(id: number, params: Partial<UpdateUserParams>) {
+    const user = await this.userRepository.findOneBy({ id });
+    const newProfile = this.profilerRepository.create(params);
+    const savedProfile = await this.profilerRepository.save(newProfile);
+
+    user.profile = savedProfile;
+
+    return this.userRepository.save(user);
   }
 }
