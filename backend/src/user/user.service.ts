@@ -21,7 +21,22 @@ export class UserService {
   }
 
   fetchUsers() {
-    return this.userRepository.find({ relations: ['profile'] });
+    return this.userRepository.find({
+      relations: ['profile'],
+      select: {
+        id: true,
+        profile: {
+          id: true,
+          firstname: true,
+          lastname: true,
+          location: true,
+          department: true,
+          description: true,
+          phone: true,
+          email: true,
+        },
+      },
+    });
   }
 
   fetchUser(id: number) {

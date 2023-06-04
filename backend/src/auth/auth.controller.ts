@@ -35,6 +35,7 @@ export class AuthController {
 
     return res.send({
       messsage: 'login successful',
+      token: jwt.access_token,
     });
   }
 
