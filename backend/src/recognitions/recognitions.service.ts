@@ -48,8 +48,18 @@ export class RecognitionsService {
       where: {
         senderId: userId,
       },
-      relations: {
-        values: true,
+      relations: ['values', 'receiver', 'receiver.profile'],
+      select: {
+        id: true,
+        receiver: {
+          id: true,
+          profile: {
+            firstname: true,
+            lastname: true,
+            location: true,
+            department: true,
+          },
+        },
       },
     });
   }

@@ -7,7 +7,7 @@ export class Recognition {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User)
   senderId: number;
 
   @ManyToOne(() => User)
