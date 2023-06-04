@@ -12,4 +12,16 @@ client.interceptors.request.use((req) => {
   return req;
 })
 
+client.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response.status === 401) {
+      cookies.remove('access_token');
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
+    }
+  }
+)
+
 export default client;
