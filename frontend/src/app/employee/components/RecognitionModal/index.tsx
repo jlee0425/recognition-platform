@@ -1,26 +1,13 @@
 import Button from '@/src/components/Button';
+import Modal from '@/src/components/Modal';
 import { css } from '@emotion/react';
-import React, { CSSProperties, useState } from 'react'
-import ReactModal, { Props as ModalProps } from 'react-modal';
+import { useState } from 'react';
+import { Props as ModalProps } from 'react-modal';
 import EmployeeList from './EmployeeList';
-import RecogValue from './RecogValue';
+import RecogCompleted from './RecogCompleted';
 import RecogForm from './RecogForm';
 import RecogModalProvider from './RecogModalContext';
-
-const wrapperStyles = {
-  width: '600px',
-  height: '800px',
-  background: '#fafafa',
-  border: '1px solid #eceaea',
-  borderRadius: '8px',
-  top: '50%',
-  left: '50%',
-  right: 'auto',
-  bottom: 'auto',
-  transform: 'translate(-50%, -50%)',
-  display: 'flex',
-  flexDirection: 'column'
-} as CSSProperties;
+import RecogValue from './RecogValue';
 
 const modalProps = {
   modalHeader: css({
@@ -42,7 +29,7 @@ const modalProps = {
   }),
 }
 
-type RecogStep = 0 | 1 | 2;
+type RecogStep = 0 | 1 | 2 | 3;
 interface Props extends Pick<ModalProps, 'isOpen'> {
   onClose: () => void;
 }
@@ -59,43 +46,43 @@ const RecognitionModal = ({ isOpen, onClose }: Props) => {
   const handleClickNext = () => setRecogStep(prev => (prev + 1) as RecogStep);
 
   return (
-    <ReactModal
-    isOpen={isOpen}
-    onRequestClose={handleClose}
-    shouldCloseOnEsc
-    shouldCloseOnOverlayClick
-    style={{
-      content: wrapperStyles,
-    }}
-    ariaHideApp={false}
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      wrapperStyle={{
+        height: '800px',
+      }}
     >
-        <header css={modalProps.modalHeader}>
-          <Button 
-            buttonType='primary'
-            label="back" 
-            aria-disabled={recogStep === 0} 
-            onClick={handleClickPrev} 
-          />
-          <Button 
-            buttonType='primary'
-            label="close" 
-            onClick={handleClose} 
-          />
-        </header>
-        <main css={modalProps.modalBody}>
-          <RecogModalProvider>
-            {recogStep === 0 && (
-              <EmployeeList onClickNext={handleClickNext}/>
-            )}
-            {recogStep === 1 && (
-              <RecogValue onClickNext={handleClickNext} />
-            )}
-            {recogStep === 2 && (
-              <RecogForm onCloseModal={handleClose} />
-            )}
-          </RecogModalProvider>
-        </main>
-      </ReactModal>
+      <header css={modalProps.modalHeader}>
+        <Button 
+          buttonType='primary'
+          label="back" 
+          aria-disabled={recogStep === 0} 
+          onClick={handleClickPrev} 
+        />
+        <Button 
+          buttonType='primary'
+          label="close" 
+          onClick={handleClose} 
+        />
+      </header>
+      <main css={modalProps.modalBody}>
+        <RecogModalProvider>
+          {recogStep === 0 && (
+            <EmployeeList onClickNext={handleClickNext}/>
+          )}
+          {recogStep === 1 && (
+            <RecogValue onClickNext={handleClickNext} />
+          )}
+          {recogStep === 2 && (
+            <RecogForm onClickNext={handleClickNext} />
+          )}
+          {recogStep === 3 && (
+            <RecogCompleted />
+          )}
+        </RecogModalProvider>
+      </main>
+    </Modal>
   )
 }
 

@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'next/navigation';
-import client from '../../../lib/axios';
-import cookies from "../../../lib/cookie";
+import client from '@/src/lib/axios';
+import cookies from "@/src/lib/cookie";
 import { useMemo } from 'react';
 import queryClient from '@/src/lib/queryClient';
 

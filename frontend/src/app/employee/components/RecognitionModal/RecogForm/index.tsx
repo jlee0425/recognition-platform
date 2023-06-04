@@ -7,7 +7,7 @@ import RecogFormInput from './RecogFormInput';
 import { RecognitionValue } from '@/src/types/recognition';
 import Button from '@/src/components/Button';
 import { useRecognitionMutation } from '../../../hooks/useRecognitionMutation';
-import { useMe } from '../../../../login/hooks/useMe';
+import { useMe } from '@/src/app/login/hooks/useMe';
 
 const recogFormCss = {
   wrapper: css({
@@ -24,13 +24,13 @@ const recogFormCss = {
 }
 
 interface Props {
-  onCloseModal: () => void;
+  onClickNext: () => void;
 }
 
 export type RecogFormInputProps = Record<RecognitionValue, string>;
-const RecogForm = ({ onCloseModal }: Props) => {
+const RecogForm = ({ onClickNext }: Props) => {
   const { data: me } = useMe();
-  const { mutate: submitRecognition } = useRecognitionMutation();
+  const { mutate: submitRecognition, isLoading } = useRecognitionMutation();
   const { user, recogValues } = useRecogState();
   const formMethods = useForm<RecogFormInputProps>();
   const { handleSubmit } = formMethods;
@@ -42,7 +42,7 @@ const RecogForm = ({ onCloseModal }: Props) => {
         receiverId: user?.id,
         recognitionList: v
       }, {
-        onSuccess: onCloseModal
+        onSuccess: onClickNext
       })
     }
   }
@@ -55,7 +55,7 @@ const RecogForm = ({ onCloseModal }: Props) => {
           {recogValues.map(v => (
             <RecogFormInput key={v} recogValue={v} />
           ))}
-          <Button label="Submit" type="submit" css={recogFormCss.button} />
+          <Button label="Submit" type="submit" css={recogFormCss.button} disabled={isLoading} />
         </form>
       </FormProvider>
     </div>

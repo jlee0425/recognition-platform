@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { LoginFormProps } from '../page';
-import client from '../../../lib/axios';
+import client from '@/src/lib/axios';
 import cookies from '@/src/lib/cookie';
 
 const useLoginMutation = () => {

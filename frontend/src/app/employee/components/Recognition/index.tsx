@@ -6,6 +6,7 @@ import React from 'react';
 import EmployeeCardWrapper from '../EmployeeCardWrapper';
 import RecognitionChip from '@/src/components/RecognitionChip';
 import { RecognitionValue } from '@/src/types/recognition';
+import { usePathname, useRouter } from 'next/navigation';
 
 const chips = css({
   display: 'flex',
@@ -20,8 +21,14 @@ interface Props extends Omit<User, 'description'>{
 }
 
 const Recongnition = ({values, ...props}: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleClickRecog = () => {
+    router.replace(pathname + `?detail=${props.id}`)
+  }
   return (
-    <EmployeeCardWrapper {...props}>
+    <EmployeeCardWrapper {...props} onClick={handleClickRecog}>
       <div css={chips}>
         {values.map(value => (
           <RecognitionChip key={`${props.id}-${value}`} chipType={value} />

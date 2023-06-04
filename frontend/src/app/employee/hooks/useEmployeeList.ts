@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import client from '../../../lib/axios';
+import client from '@/src/lib/axios';
 import { User } from "@/src/types/user";
 
+export const EMPLOYEE_LIST_KEY = 'employee_list';
 export const useEmployeeList = () => {
   return useQuery(
-    ['employee_list'], 
+    [EMPLOYEE_LIST_KEY], 
     () => client.get('/user'),
     {
       select: (data) => data.data as User[]

@@ -1,4 +1,4 @@
-import { RecognitionValue } from '@/src/components/Chip';
+import { RecognitionValue } from '@/src/types/recognition';
 import { User } from '@/src/types/user';
 import React, { ReactNode, createContext, useCallback, useContext, useState } from 'react'
 

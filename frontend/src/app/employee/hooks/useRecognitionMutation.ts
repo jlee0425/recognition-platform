@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import client from '../../../lib/axios';
-import { RecognitionValue } from "@/src/types/recognition";
+import client from '@/src/lib/axios';
 import { RecogFormInputProps } from "../components/RecognitionModal/RecogForm";
+import { RECOGNITION_LIST_KEY } from "./useRecognitionList";
 
 type RecognitionMutationParams = {
   senderId: number;
@@ -12,10 +12,10 @@ type RecognitionMutationParams = {
 export const useRecognitionMutation = () => {
   const qc = useQueryClient();
   return useMutation(
-    ['recognition_list'], 
+    [RECOGNITION_LIST_KEY], 
     (data: RecognitionMutationParams) => client.post('/recognitions', data),
     {
-      onSuccess: () => qc.invalidateQueries(['recognition_list'])
+      onSuccess: () => qc.invalidateQueries([RECOGNITION_LIST_KEY])
     }
   )
 }

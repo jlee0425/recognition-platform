@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import client from '../../../lib/axios';
+import client from '@/src/lib/axios';
 
+export const RECOGNITION_LIST_KEY = 'recognition_list';
 export const useRecognitionList = () => {
   return useQuery(
-    ['recognition_list'], 
+    [RECOGNITION_LIST_KEY], 
     () => client.get('/recognitions'),
     {
       select: (data) => data.data

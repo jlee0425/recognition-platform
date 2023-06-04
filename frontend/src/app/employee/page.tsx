@@ -8,6 +8,8 @@ import Recongnition from './components/Recognition';
 import RecognitionModal from './components/RecognitionModal';
 import { useRecognitionList } from './hooks/useRecognitionList';
 import { Recognition, RecognitionValue } from '@/src/types/recognition';
+import RecogDetailModal from './components/RecogDetailModal/index';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const pageCss = {
   recogSection: css({
@@ -44,11 +46,16 @@ const pageCss = {
   }),
 }
 
+const RECOGNITION_MODAL_KEY = 'detail';
 const EmployeePage = () => {
   const { data } = useRecognitionList();
-  const [isOpenModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const detailId = searchParams.get(RECOGNITION_MODAL_KEY);
+  const handleOpenModal = () => setIsOpenModal(true);
+  const handleCloseModal = () => setIsOpenModal(false);
 
   return (
     <>
@@ -77,6 +84,11 @@ const EmployeePage = () => {
         isOpen={isOpenModal}
         onClose={handleCloseModal}
       />
+      {detailId && <RecogDetailModal
+        isOpen={searchParams.has(RECOGNITION_MODAL_KEY)}
+        onClose={() => router.replace('/employee')}
+        {...data?.find((d: Recognition) => d.id === Number(detailId))}
+      />}
     </>
   )
 }

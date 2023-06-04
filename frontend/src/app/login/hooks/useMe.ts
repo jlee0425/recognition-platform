@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import client from '../../../lib/axios';
+import client from '@/src/lib/axios';
 
 export const useMe = () => {
   return useQuery(

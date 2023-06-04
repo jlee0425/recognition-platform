@@ -48,16 +48,18 @@ const cardCss = {
   }),
 }
 
-interface Props extends User {
+interface Props extends Omit<User, 'id'> {
   children: ReactNode;
+  onClick?: () => void;
 }
 
 const EmployeeCardWrapper = ({
   profile: {firstname, lastname, department, location},
+  onClick,
   children
 }: Props) => {
   return (
-    <div css={cardCss.wrapper}>
+    <div css={cardCss.wrapper} onClick={onClick}>
       <div css={cardCss.photo}>
         <Image src='/logo.png' alt={`${firstname}-photo`} fill />
       </div>
