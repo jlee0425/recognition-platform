@@ -3,9 +3,13 @@ import { RECOGNITION_VALUES } from '../components/RecognitionChip';
 
 export type RecognitionValue = typeof RECOGNITION_VALUES[number];
 
-export type RecognitionItem = Record<RecognitionValue, string>;
+export type RecognitionItem = {
+  id: number;
+  value: string;
+  detail: string;
+};
 export interface Recognition extends User {
   id: number;
-  from: User;
-  tagList: RecognitionItem[];
+  receiver: User['profile'];
+  values: RecognitionItem[];
 }

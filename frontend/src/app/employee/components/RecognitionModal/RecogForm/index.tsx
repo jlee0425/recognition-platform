@@ -6,6 +6,8 @@ import { useRecogState } from '../RecogModalContext';
 import RecogFormInput from './RecogFormInput';
 import { RecognitionValue } from '@/src/types/recognition';
 import Button from '@/src/components/Button';
+import { useRecognitionMutation } from '../../../hooks/useRecognitionMutation';
+import { useMe } from '../../../../login/hooks/useMe';
 
 const recogFormCss = {
   wrapper: css({
@@ -22,17 +24,27 @@ const recogFormCss = {
 }
 
 interface Props {
-  onCloseModal: ModalProps['onRequestClose'];
+  onCloseModal: () => void;
 }
 
-type RecogFormInputProps = Record<RecognitionValue, string>;
+export type RecogFormInputProps = Record<RecognitionValue, string>;
 const RecogForm = ({ onCloseModal }: Props) => {
+  const { data: me } = useMe();
+  const { mutate: submitRecognition } = useRecognitionMutation();
   const { user, recogValues } = useRecogState();
   const formMethods = useForm<RecogFormInputProps>();
-  const { handleSubmit, formState: { isValid } } = formMethods;
+  const { handleSubmit } = formMethods;
 
   const handleSubmitForm = (v: RecogFormInputProps) => {
-    console.log('v', v);
+    if (!!me && !!user) {
+      submitRecognition({
+        senderId: me?.id,
+        receiverId: user?.id,
+        recognitionList: v
+      }, {
+        onSuccess: onCloseModal
+      })
+    }
   }
 
   return (

@@ -4,11 +4,10 @@ import React, { useState } from 'react'
 
 import Button from '@/src/components/Button';
 import { css } from '@emotion/react';
-
-
-import type { User } from '@/src/types/user';
 import Recongnition from './components/Recognition';
 import RecognitionModal from './components/RecognitionModal';
+import { useRecognitionList } from './hooks/useRecognitionList';
+import { Recognition, RecognitionValue } from '@/src/types/recognition';
 
 const pageCss = {
   recogSection: css({
@@ -46,6 +45,7 @@ const pageCss = {
 }
 
 const EmployeePage = () => {
+  const { data } = useRecognitionList();
   const [isOpenModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -64,13 +64,14 @@ const EmployeePage = () => {
       </section>
       <h3 css={pageCss.listSectionTitle}>Recognitions</h3>
       <section css={pageCss.listSection}>
-        {/* {MockStaff.map((staff: User) => (
+        {data?.map(({ receiver, values, ...props }: Recognition) => (
           <Recongnition 
-            key={staff.id} 
-            {...staff} 
-            recognizedValues={['CONSTRUCTIVE', 'EASY_GOING', 'LEADER', 'LEARNER', 'PERFORMER']}
+            key={props.id} 
+            {...props} 
+            profile={receiver}
+            values={values.map(v => v.value as RecognitionValue)}
           />
-        ))} */}
+        ))}
       </section>
       <RecognitionModal 
         isOpen={isOpenModal}

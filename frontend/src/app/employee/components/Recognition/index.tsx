@@ -16,14 +16,14 @@ const chips = css({
 });
 
 interface Props extends Omit<User, 'description'>{
-  recognizedValues: RecognitionValue[];
+  values: RecognitionValue[];
 }
 
-const Recongnition = ({recognizedValues, ...props}: Props) => {
+const Recongnition = ({values, ...props}: Props) => {
   return (
     <EmployeeCardWrapper {...props}>
       <div css={chips}>
-        {recognizedValues.map(value => (
+        {values.map(value => (
           <RecognitionChip key={`${props.id}-${value}`} chipType={value} />
           ))}
       </div>

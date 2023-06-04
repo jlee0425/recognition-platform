@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { css } from '@emotion/react';
 
 import EmployeeRow from './EmployeeRow';
 import { useRecogState } from '../RecogModalContext';
 import { User } from '@/src/types/user';
+import { useEmployeeList } from '../../../hooks/useEmployeeList';
 
 const listCss = {
   wrapper: css({
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const EmployeeList = ({ onClickNext }: Props) => {
+  const { data: employeeList } = useEmployeeList();
   const { setUser, handleRemoveValues } = useRecogState();
 
   const handleClickUser = (user: User) => () => {
@@ -35,9 +37,9 @@ const EmployeeList = ({ onClickNext }: Props) => {
 
     return (
     <div css={listCss.wrapper}>
-      {/* {MockStaff.map(staff => (
+      {employeeList?.map(staff => (
         <EmployeeRow key={staff.id} {...staff} onClickNext={handleClickUser(staff)} />
-      ))} */}
+      ))}
     </div>
   )
 }
