@@ -3,8 +3,8 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
 import { Props as ModalProps } from 'react-modal';
 import { useRecogState } from '../RecogModalContext';
-import { RecognitionValue } from '@/src/components/Chip';
 import RecogFormInput from './RecogFormInput';
+import { RecognitionValue } from '@/src/types/recognition';
 import Button from '@/src/components/Button';
 
 const recogFormCss = {

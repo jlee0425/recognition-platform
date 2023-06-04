@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { css } from '@emotion/react';
 
-import MockStaff from '@/src/__mock__/user.json';
 import EmployeeRow from './EmployeeRow';
 import { useRecogState } from '../RecogModalContext';
 import { User } from '@/src/types/user';
@@ -36,9 +35,9 @@ const EmployeeList = ({ onClickNext }: Props) => {
 
     return (
     <div css={listCss.wrapper}>
-      {MockStaff.map(staff => (
+      {/* {MockStaff.map(staff => (
         <EmployeeRow key={staff.id} {...staff} onClickNext={handleClickUser(staff)} />
-      ))}
+      ))} */}
     </div>
   )
 }

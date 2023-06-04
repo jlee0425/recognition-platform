@@ -1,4 +1,5 @@
-import { CHIP_COLORS, RecognitionValue } from '@/src/components/Chip';
+import { CHIP_COLORS } from '@/src/components/RecognitionChip';
+import { RecognitionValue } from '@/src/types/recognition';
 import { css } from '@emotion/react';
 import { useController, useFormContext } from 'react-hook-form';
 

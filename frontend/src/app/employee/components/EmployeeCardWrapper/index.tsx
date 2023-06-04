@@ -48,19 +48,20 @@ const cardCss = {
   }),
 }
 
-interface Props extends Omit<User, 'description'> {
+interface Props extends User {
   children: ReactNode;
 }
 
 const EmployeeCardWrapper = ({
-  username, profilePicture, department, location, children
+  profile: {firstname, lastname, department, location},
+  profilePicture, children
 }: Props) => {
   return (
     <div css={cardCss.wrapper}>
       <div css={cardCss.photo}>
-        <Image src={profilePicture} alt={`${username}-photo`} fill />
+        <Image src={profilePicture} alt={`${firstname}-photo`} fill />
       </div>
-      <div css={cardCss.name}>{username.firstName} {username.lastName}</div>
+      <div css={cardCss.name}>{firstname} {lastname}</div>
       <div css={cardCss.info}>
         <p>{location}</p>
         <p>{department}</p>

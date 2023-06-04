@@ -1,9 +1,9 @@
 import Button from '@/src/components/Button';
+import RecognitionChip, { RECOGNITION_VALUES } from '@/src/components/RecognitionChip';
+import { RecognitionValue } from '@/src/types/recognition';
 import { css } from '@emotion/react';
-import React, { useCallback, useEffect } from 'react'
-import { useRecogState } from '../RecogModalContext';
 import EmployeeCard from '../../EmployeeCard';
-import Chip, { RECOGNITION_VALUES, RecognitionValue } from '@/src/components/Chip';
+import { useRecogState } from '../RecogModalContext';
 
 const recogValueCss = {
   wrapper: css({
@@ -56,7 +56,7 @@ const RecogValue = ({ onClickNext }: Props) => {
       <h3>Choose values from below</h3>
       <div css={recogValueCss.valueList}>
         {RECOGNITION_VALUES.map(val => (
-          <Chip 
+          <RecognitionChip 
             key={val} 
             chipType={val} 
             selected={recogValues.includes(val)}
@@ -65,7 +65,7 @@ const RecogValue = ({ onClickNext }: Props) => {
         ))}
       </div>
       <Button 
-        label={`Give '${user?.username.firstName.toUpperCase()}' Recognition`} 
+        label={`Give '${user?.profile.firstname.toUpperCase()}' Recognition`} 
         onClick={onClickNext} 
       />
     </div>

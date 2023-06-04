@@ -12,13 +12,11 @@ const descCss = css({
 
 interface Props extends User {}
 
-const EmployeeCard = ({
-  description, ...props
-}: Props) => {
+const EmployeeCard = (props: Props) => {
   return (
     <EmployeeCardWrapper {...props}>
       <p css={descCss}>
-        {description}
+        {props.profile?.description || ''}
       </p>
     </EmployeeCardWrapper>
   )

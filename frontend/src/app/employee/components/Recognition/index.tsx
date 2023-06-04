@@ -1,11 +1,11 @@
 'use client';
 
-import { ReconitionValue } from '@/src/types/recognition';
 import { User } from '@/src/types/user';
 import { css } from '@emotion/react';
 import React from 'react';
 import EmployeeCardWrapper from '../EmployeeCardWrapper';
-import Chip from '@/src/components/Chip';
+import RecognitionChip from '@/src/components/RecognitionChip';
+import { RecognitionValue } from '@/src/types/recognition';
 
 const chips = css({
   display: 'flex',
@@ -16,7 +16,7 @@ const chips = css({
 });
 
 interface Props extends Omit<User, 'description'>{
-  recognizedValues: ReconitionValue[];
+  recognizedValues: RecognitionValue[];
 }
 
 const Recongnition = ({recognizedValues, ...props}: Props) => {
@@ -24,7 +24,7 @@ const Recongnition = ({recognizedValues, ...props}: Props) => {
     <EmployeeCardWrapper {...props}>
       <div css={chips}>
         {recognizedValues.map(value => (
-          <Chip key={`${props.username}-${value}`} chipType={value} />
+          <RecognitionChip key={`${props.id}-${value}`} chipType={value} />
           ))}
       </div>
     </EmployeeCardWrapper>

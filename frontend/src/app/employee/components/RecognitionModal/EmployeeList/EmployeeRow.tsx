@@ -46,14 +46,15 @@ interface Props extends Omit<User, 'description'> {
 }
 
 const EmployeeRow = ({
-  username, profilePicture, location, department, onClickNext
+  profile: {firstname, lastname, location, department},
+  profilePicture, onClickNext
 }: Props) => {
   return (
     <div css={employeeRowCss.row} onClick={onClickNext}>
-      <Image src={profilePicture} alt={`${username}-photo`} width={64} height={64} />
+      <Image src={profilePicture} alt={`${firstname}-photo`} width={64} height={64} />
       <h3 css={employeeRowCss.username}>
-        <span>{username.firstName}</span>
-        <span>{username.lastName}</span>
+        <span>{firstname}</span>
+        <span>{lastname}</span>
       </h3>
       <div css={employeeRowCss.info}>
         <span>{location}</span>
