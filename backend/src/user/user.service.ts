@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
-    @InjectRepository(Profile) private profilerRepository: Repository<Profile>,
+    @InjectRepository(Profile) private profileRepository: Repository<Profile>,
   ) {}
 
   async findOneByUserName(username: string): Promise<User | undefined> {
@@ -22,7 +22,7 @@ export class UserService {
 
   fetchUsers() {
     return this.userRepository.find({
-      relations: ['profile'],
+      relations: ['profile', 'manager'],
       select: {
         id: true,
         profile: {
@@ -34,6 +34,19 @@ export class UserService {
           description: true,
           phone: true,
           email: true,
+        },
+        manager: {
+          id: true,
+          profile: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            location: true,
+            department: true,
+            description: true,
+            phone: true,
+            email: true,
+          },
         },
       },
     });
@@ -48,11 +61,21 @@ export class UserService {
 
   async updateUserProfile(id: number, params: Partial<UpdateUserParams>) {
     const user = await this.userRepository.findOneBy({ id });
-    const newProfile = this.profilerRepository.create(params);
-    const savedProfile = await this.profilerRepository.save(newProfile);
+    const newProfile = this.profileRepository.create(params);
+    const savedProfile = await this.profileRepository.save(newProfile);
 
     user.profile = savedProfile;
 
+    return this.userRepository.save(user);
+  }
+
+  async updateUserManager(id: number) {
+    const user = await this.userRepository.findOneBy({ id });
+    const manager = await this.userRepository.findOneBy({
+      id: id < 16 ? id + 5 : id - 5,
+    });
+
+    user.manager = manager;
     return this.userRepository.save(user);
   }
 }

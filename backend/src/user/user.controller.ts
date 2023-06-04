@@ -25,4 +25,14 @@ export class UserController {
 
     return;
   }
+
+  @PublicRoute()
+  @Post('/update-manager')
+  linkUserManager() {
+    [...Array(20).keys()]
+      .map((i) => i + 1)
+      .forEach((id) => this.userService.updateUserManager(id));
+
+    return;
+  }
 }
