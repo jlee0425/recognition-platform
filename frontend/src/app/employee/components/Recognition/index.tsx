@@ -14,6 +14,7 @@ const chips = css({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '4px',
+  overflowY: 'auto'
 });
 
 interface Props extends Omit<User, 'description'>{

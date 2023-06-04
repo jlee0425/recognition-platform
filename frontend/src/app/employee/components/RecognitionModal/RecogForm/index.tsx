@@ -19,7 +19,11 @@ const recogFormCss = {
   button: css({
     display: 'block',
     width: '50%',
-    margin: '0 auto'
+    margin: '0 auto',
+    '&[aria-disabled="true"]': {
+      pointerEvents: 'none',
+      opacity: 0.4
+    }
   })
 }
 
@@ -55,7 +59,7 @@ const RecogForm = ({ onClickNext }: Props) => {
           {recogValues.map(v => (
             <RecogFormInput key={v} recogValue={v} />
           ))}
-          <Button label="Submit" type="submit" css={recogFormCss.button} disabled={isLoading} />
+          <Button label="Submit" type="submit" css={recogFormCss.button} aria-disabled={isLoading} />
         </form>
       </FormProvider>
     </div>
