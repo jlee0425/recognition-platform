@@ -6,6 +6,8 @@ import { css } from '@emotion/react';
 
 import './globals.css';
 import Image from 'next/image';
+import { QueryClientProvider } from '@tanstack/react-query';
+import queryClient from '../lib/queryClient';
 
 const inter = Inter({ subsets: ['latin'] });
 const rootLayout = {
@@ -37,7 +39,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <title>Recognition Program</title>
       </head>
-      <body className={inter.className} >
+      <body className={inter.className} suppressContentEditableWarning>
         <header css={rootLayout.header}>
           <Image 
             src='/logo.png' 
@@ -47,9 +49,11 @@ export default function RootLayout({
             alt="liferay-logo"
           />
         </header>
-        <main css={rootLayout.main}>
-          {children}
-        </main>
+        <QueryClientProvider client={queryClient}>
+          <main css={rootLayout.main}>
+            {children}
+          </main>
+        </QueryClientProvider>
         </body>
     </html>
   )
