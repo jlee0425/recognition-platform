@@ -67,9 +67,9 @@ const EmployeePage = () => {
         {data?.map(({ receiver, values, ...props }: Recognition) => (
           <Recongnition 
             key={props.id} 
-            {...props} 
-            profile={receiver}
+            profile={receiver.profile}
             values={values.map(v => v.value as RecognitionValue)}
+            {...props}
           />
         ))}
       </section>

@@ -8,19 +8,23 @@ import './globals.css';
 import Image from 'next/image';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from '../lib/queryClient';
+import { useLogoutMutation } from './login/hooks/useLogoutMutation';
 
 const inter = Inter({ subsets: ['latin'] });
 const rootLayout = {
   header: css({
     width: '100%',
     padding: '5px 20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }),
   main: css({
     height: 'calc(100% - 64px)',
   }),
   logo: css({
     objectFit: 'contain',
-  })
+  }),
 };
 
 export const metadata: Metadata = {
@@ -33,6 +37,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const { handleLogout, isAuthenticated } = useLogoutMutation();
   return (
     <html lang="en">
       <head>
@@ -48,6 +53,7 @@ export default function RootLayout({
             css={rootLayout.logo} 
             alt="liferay-logo"
           />
+          {isAuthenticated && <span onClick={handleLogout}>logout</span>}
         </header>
         <QueryClientProvider client={queryClient}>
           <main css={rootLayout.main}>

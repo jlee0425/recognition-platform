@@ -8,8 +8,8 @@ export type RecognitionItem = {
   value: string;
   detail: string;
 };
-export interface Recognition extends User {
+export interface Recognition {
   id: number;
-  receiver: User['profile'];
+  receiver: User;
   values: RecognitionItem[];
 }

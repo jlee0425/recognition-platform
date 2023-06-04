@@ -91,7 +91,7 @@ const RecognitionModal = ({ isOpen, onClose }: Props) => {
               <RecogValue onClickNext={handleClickNext} />
             )}
             {recogStep === 2 && (
-              <RecogForm onCloseModal={onClose} />
+              <RecogForm onCloseModal={handleClose} />
             )}
           </RecogModalProvider>
         </main>

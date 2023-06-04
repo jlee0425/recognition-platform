@@ -54,12 +54,12 @@ interface Props extends User {
 
 const EmployeeCardWrapper = ({
   profile: {firstname, lastname, department, location},
-  profilePicture, children
+  children
 }: Props) => {
   return (
     <div css={cardCss.wrapper}>
       <div css={cardCss.photo}>
-        <Image src={profilePicture} alt={`${firstname}-photo`} fill />
+        <Image src='/logo.png' alt={`${firstname}-photo`} fill />
       </div>
       <div css={cardCss.name}>{firstname} {lastname}</div>
       <div css={cardCss.info}>
