@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { IS_PUBLIC_ROUTE } from 'src/auth/constants';
-import { SignInDto } from 'src/auth/dtos/SignIn.dto';
-import { AuthService } from 'src/auth/services/auth/auth.service';
+import { SignInDto } from 'src/auth/dtos/sign-in.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +28,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('me')
   getUserProfile(@Request() req) {
-    return req.user;
+    return this.authService.fetchUser(req['user'].userId);
   }
 }

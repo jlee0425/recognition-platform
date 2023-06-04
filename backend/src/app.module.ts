@@ -9,6 +9,9 @@ import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { RecognitionsModule } from './recognitions/recognitions.module';
+import { Recognition } from './typeorm/entities/Recognition';
+import { RecognitionValue } from './typeorm/entities/RecognitionValue';
 
 @Module({
   imports: [
@@ -19,12 +22,13 @@ import { JwtModule } from '@nestjs/jwt';
       username: 'root',
       password: 'admin',
       database: 'liferay_assignment',
-      entities: [User, Profile],
+      entities: [User, Profile, Recognition, RecognitionValue],
       synchronize: true,
     }),
     AuthModule,
     UserModule,
     JwtModule,
+    RecognitionsModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }],

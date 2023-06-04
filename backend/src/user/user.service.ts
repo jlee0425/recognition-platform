@@ -12,8 +12,12 @@ export class UserService {
     @InjectRepository(Profile) private profilerRepository: Repository<Profile>,
   ) {}
 
-  async findOne(username: string): Promise<User | undefined> {
+  async findOneByUserName(username: string): Promise<User | undefined> {
     return this.userRepository.findOne({ where: { username } });
+  }
+
+  async findOneByUserId(id: number): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { id } });
   }
 
   fetchUsers() {
