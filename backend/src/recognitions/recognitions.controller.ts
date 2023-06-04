@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateRecognitionDto } from './dto/create-recognition.dto';
 import { RecognitionsService } from './recognitions.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('recognitions')
 export class RecognitionsController {
@@ -11,9 +20,10 @@ export class RecognitionsController {
     return this.recognitionsService.create(createRecognitionDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
-  findAllByUser(@Param('userId') userId: number) {
-    return this.recognitionsService.findAll(userId);
+  findAllByUser(@Request() req) {
+    return this.recognitionsService.findAll(req['user'].userId);
   }
 
   @Get(':id')

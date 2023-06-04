@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './User';
 import { RecognitionValue } from './RecognitionValue';
+import { User } from './User';
 
 @Entity()
 export class Recognition {
@@ -8,7 +8,7 @@ export class Recognition {
   id: number;
 
   @ManyToOne(() => User)
-  senderId: number;
+  sender: User;
 
   @ManyToOne(() => User)
   receiver: User;

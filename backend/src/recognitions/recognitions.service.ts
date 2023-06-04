@@ -22,7 +22,7 @@ export class RecognitionsService {
     recognitionList,
   }: CreateRecognitionDto) {
     const newRecognition = this.recognitionRepository.create({
-      senderId,
+      sender: await this.userService.findOneByUserId(senderId),
       receiver: await this.userService.findOneByUserId(receiverId),
     });
 
@@ -43,12 +43,8 @@ export class RecognitionsService {
     return this.recognitionRepository.save(savedRecog);
   }
 
-  findAll(userId: number) {
+  async findAll(userId: number) {
     return this.recognitionRepository.find({
-      where: {
-        senderId: userId,
-      },
-      relations: ['values', 'receiver', 'receiver.profile'],
       select: {
         id: true,
         receiver: {
@@ -61,13 +57,17 @@ export class RecognitionsService {
           },
         },
       },
+      relations: ['values', 'receiver', 'receiver.profile'],
+      where: {
+        sender: await this.userService.findOneByUserId(userId),
+      },
     });
   }
 
-  findOne(userId: number, recogId: number) {
+  async findOne(userId: number, recogId: number) {
     return this.recognitionRepository.findOne({
       where: {
-        senderId: userId,
+        sender: await this.userService.findOneByUserId(userId),
         id: recogId,
       },
     });

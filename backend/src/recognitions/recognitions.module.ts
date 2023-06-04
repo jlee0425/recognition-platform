@@ -7,12 +7,13 @@ import { UserService } from 'src/user/user.service';
 import { Recognition } from 'src/typeorm/entities/Recognition';
 import { RecognitionValue } from 'src/typeorm/entities/RecognitionValue';
 import { Profile } from 'src/typeorm/entities/Profile';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Profile, Recognition, RecognitionValue]),
   ],
   controllers: [RecognitionsController],
-  providers: [RecognitionsService, UserService],
+  providers: [RecognitionsService, UserService, JwtService],
 })
 export class RecognitionsModule {}
