@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies and start development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+yarn && yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Layout
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Only the header is shared between pages, and it has a logo and a `logout` button depending on the authentication state.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Routes
 
-To learn more about Next.js, take a look at the following resources:
+The frontend is impletemented in mainly two routes: `/login` and `/employee`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Using `middleware` and `cookies`, if a user doesn't have `access_token` in their cookies, they will be redirected to `/login` for authentication. With the same logic, a user will be redirected to `/employee`, if `access_token` presents in their cookies.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+When the token expires or if it is corrupted, i.e. `axios interceptor` catches `401` error, the current `access_token` will be removed and the user will be redirected to `/login`.
 
-## Deploy on Vercel
+### `/login`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This page demonstrates a simple login form.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Both username and password are required to proceed, and using `react-hook-form`, it validates the form state and shows error messages accordingly.
+
+### `/employee`
+
+This page consists of two parts: `Recognition Form Modal`, and `Recognition List`.
+
+`RecognitionFormModal` pops up when `Click to Applaude` button is pressed. There are 4 sections in the modal.
+1. Choose an employee from the list.
+2. Choose values to be recognized.
+    - There are 8 values to be chosen, and the next form is directly affected by these selection.
+3. Describe the details why those values are recognized.
+    - The form changes dynamically with respect to the values chosen in `step 2`.
+    - every field is required to be submitted.
+    - The submission button will be disabled after the initial submission to prevent duplications.
+4. Complete.
+    - After submitting, `Recognition List` will be refetched to reflect the latest submissions.
+
+`Recognition List` shows a list of recognitions that the current user has submitted.
+Each card only shows the values of the recognition, and the user can check the details by clicking on each card.
