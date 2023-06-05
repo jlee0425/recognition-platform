@@ -8,3 +8,7 @@ export interface User {
     description: string;
   }
 }
+
+export interface MeInfo extends User {
+  manager: User;
+}

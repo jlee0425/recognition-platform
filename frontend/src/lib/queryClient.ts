@@ -1,5 +1,4 @@
-import { QueryClient, QueryFunction } from '@tanstack/react-query';
-import client from './axios';
+import { QueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 

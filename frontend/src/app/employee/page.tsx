@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useState } from 'react'
+import { useState } from 'react';
 
 import Button from '@/src/components/Button';
+import { Recognition, RecognitionValue } from '@/src/types/recognition';
 import { css } from '@emotion/react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import RecogDetailModal from './components/RecogDetailModal/index';
 import Recongnition from './components/Recognition';
 import RecognitionModal from './components/RecognitionModal';
+import SectionHeader, { SECTION_LIST } from './components/SectionHeader';
 import { useRecognitionList } from './hooks/useRecognitionList';
-import { Recognition, RecognitionValue } from '@/src/types/recognition';
-import RecogDetailModal from './components/RecogDetailModal/index';
-import { useRouter, useSearchParams } from 'next/navigation';
+import NoList from './components/NoList/index';
 
 const pageCss = {
   recogSection: css({
@@ -30,11 +32,6 @@ const pageCss = {
       marginBottom: '44px',
     })
   }),
-  listSectionTitle: css({
-    textAlign: 'center',
-    margin: '24px 0',
-    fontSize: '28px'
-  }),
   listSection: css({
     maxWidth: '1024px',
     margin: '0 auto',
@@ -44,14 +41,23 @@ const pageCss = {
     gap: '15px',
     paddingBottom: '24px'
   }),
+  sectionTitle: css({
+    fontSize: '28px',
+    textAlign: 'center',
+    marginTop: '20px'
+  })
 }
 
+export type SectionType = typeof SECTION_LIST[number];
 const RECOGNITION_MODAL_KEY = 'detail';
 const EmployeePage = () => {
-  const { data } = useRecognitionList();
+  const [section, setSection] = useState<SectionType>('sent');
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { data: recogList } = useRecognitionList(section);
+  
 
   const detailId = searchParams.get(RECOGNITION_MODAL_KEY);
   const handleOpenModal = () => setIsOpenModal(true);
@@ -69,26 +75,33 @@ const EmployeePage = () => {
           buttonType='primary'
         />
       </section>
-      <h3 css={pageCss.listSectionTitle}>Recognitions</h3>
-      <section css={pageCss.listSection}>
-        {data?.map(({ receiver, values, ...props }: Recognition) => (
-          <Recongnition 
-            key={props.id} 
-            profile={receiver.profile}
-            values={values.map(v => v.value as RecognitionValue)}
-            {...props}
-          />
-        ))}
-      </section>
+      <h3 css={pageCss.sectionTitle}>Recognitions</h3>
+      <SectionHeader selected={section} onSetSection={setSection}/>
+      {(recogList || []).length > 0 ? (
+        <section css={pageCss.listSection}>
+            {recogList.map(({ receiver, values, ...props }: Recognition) => (
+              <Recongnition 
+                key={props.id} 
+                profile={receiver.profile}
+                values={values.map(v => v.value as RecognitionValue)}
+                {...props}
+              />
+            ))}
+        </section>
+      ) : (
+        <NoList />
+      )}
       <RecognitionModal 
         isOpen={isOpenModal}
         onClose={handleCloseModal}
       />
-      {detailId && <RecogDetailModal
-        isOpen={searchParams.has(RECOGNITION_MODAL_KEY)}
-        onClose={() => router.replace('/employee')}
-        {...data?.find((d: Recognition) => d.id === Number(detailId))}
-      />}
+      {detailId && (
+        <RecogDetailModal
+          isOpen={searchParams.has(RECOGNITION_MODAL_KEY)}
+          onClose={() => router.replace(pathname)}
+          {...recogList?.find((d: Recognition) => d.id === Number(detailId))}
+        />
+      )}
     </>
   )
 }
