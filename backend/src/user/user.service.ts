@@ -17,7 +17,37 @@ export class UserService {
   }
 
   async findOneByUserId(id: number): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: { id } });
+    return this.userRepository.findOne({
+      where: { id },
+      relations: ['profile', 'manager', 'manager.profile'],
+      select: {
+        id: true,
+        username: true,
+        manager: {
+          id: true,
+          profile: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            location: true,
+            department: true,
+            description: true,
+            phone: true,
+            email: true,
+          },
+        },
+        profile: {
+          id: true,
+          firstname: true,
+          lastname: true,
+          location: true,
+          department: true,
+          description: true,
+          phone: true,
+          email: true,
+        },
+      },
+    });
   }
 
   async fetchUsers(curUserId: number) {
