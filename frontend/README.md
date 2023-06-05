@@ -1,5 +1,11 @@
 # Frontend
 
+### Dependencies
+- Typescript, React, Nextjs
+- React Query, React Hook Form
+- Emotion, React Modal
+- Axios, Universal Cookie
+
 ## Getting Started
 
 First, install the dependencies and start development server:
@@ -42,5 +48,9 @@ This page consists of two parts: `Recognition Form Modal`, and `Recognition List
 4. Complete.
     - After submitting, `Recognition List` will be refetched to reflect the latest submissions.
 
-`Recognition List` shows a list of recognitions that the current user has submitted.
+`Recognition List` has three tabs: `sent`, `received`, and `team`.
 Each card only shows the values of the recognition, and the user can check the details by clicking on each card.
+
+- `sent` tab: a list of recognitions that the current user has submitted.
+- `received` tab: a list of recognitions sent for the current user.
+- `team` tab: only accessible for managers. a list of recognitions for the manager's team.
