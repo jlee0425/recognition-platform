@@ -7,12 +7,14 @@ const sectionCss = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-around',
-  width: '50%',
+  width: '40%',
   margin: '24px auto',
   fontSize: '28px',
   fontWeight: 400,
   '> span': {
     cursor: 'pointer',
+    width: '125px',
+    textAlign: 'center',
     '&[aria-selected="true"]': {
       fontWeight: 700
     }
@@ -38,7 +40,7 @@ const SectionHeader = ({ selected, onSetSection }: Props) => {
         if (!isManager && idx === 2) return null;
         return (
           <>
-            {idx !== 0 && <span key={label + ' divider'}>/</span>}
+            {idx !== 0 && <span key={label + ' divider'} style={{width: 'fit-content'}}>|</span>}
             <span 
               key={label} 
               aria-selected={label === selected}
