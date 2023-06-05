@@ -1,14 +1,14 @@
 'use client';
 
-import { Metadata } from 'next';
-import { Inter } from 'next/font/google'
 import { css } from '@emotion/react';
+import { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-import './globals.css';
-import Image from 'next/image';
 import { QueryClientProvider } from '@tanstack/react-query';
+import Image from 'next/image';
 import queryClient from '../lib/queryClient';
-import { useLogoutMutation } from './login/hooks/useLogoutMutation';
+import './globals.css';
+import LayoutHeader from '../components/LayoutHeader';
 
 const inter = Inter({ subsets: ['latin'] });
 const rootLayout = {
@@ -37,7 +37,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { handleLogout, isAuthenticated } = useLogoutMutation();
   return (
     <html lang="en">
       <head>
@@ -53,7 +52,7 @@ export default function RootLayout({
             css={rootLayout.logo} 
             alt="liferay-logo"
           />
-          {isAuthenticated && <span onClick={handleLogout}>logout</span>}
+          <LayoutHeader />
         </header>
         <QueryClientProvider client={queryClient}>
           <main css={rootLayout.main}>
