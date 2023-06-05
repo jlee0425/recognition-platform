@@ -43,7 +43,7 @@ export class RecognitionsService {
     return this.recognitionRepository.save(savedRecog);
   }
 
-  async findAll(userId: number) {
+  async findAllByMe(userId: number) {
     return this.recognitionRepository.find({
       select: {
         id: true,
@@ -62,6 +62,57 @@ export class RecognitionsService {
         sender: await this.userService.findOneByUserId(userId),
       },
     });
+  }
+
+  async findAllForMe(userId: number) {
+    return this.recognitionRepository.find({
+      select: {
+        id: true,
+        receiver: {
+          id: true,
+          profile: {
+            firstname: true,
+            lastname: true,
+            location: true,
+            department: true,
+          },
+        },
+      },
+      relations: ['values', 'receiver', 'receiver.profile'],
+      where: {
+        receiver: await this.userService.findOneByUserId(userId),
+      },
+    });
+  }
+
+  async findAllForMyTeam(userId: number) {
+    const users = await this.userService.fetchUsers(userId);
+    const teamMembers = users.filter((u) => u.manager?.id === userId) || [];
+    const teamRecognitions = await Promise.all(
+      teamMembers.map(async ({ id }) => {
+        const recognitions = await this.recognitionRepository.find({
+          select: {
+            id: true,
+            receiver: {
+              id: true,
+              profile: {
+                firstname: true,
+                lastname: true,
+                location: true,
+                department: true,
+              },
+            },
+          },
+          relations: ['values', 'receiver', 'receiver.profile'],
+          where: {
+            receiver: await this.userService.findOneByUserId(id),
+          },
+        });
+        return recognitions;
+      }),
+    );
+
+    return teamRecognitions.flat();
   }
 
   async findOne(userId: number, recogId: number) {

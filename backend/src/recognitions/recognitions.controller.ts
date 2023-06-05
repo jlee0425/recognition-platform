@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Post,
   Request,
   UseGuards,
@@ -23,11 +22,18 @@ export class RecognitionsController {
   @UseGuards(AuthGuard)
   @Get()
   findAllByUser(@Request() req) {
-    return this.recognitionsService.findAll(req['user'].userId);
+    return this.recognitionsService.findAllByMe(req['user'].userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number, @Param('userId') userId: number) {
-    return this.recognitionsService.findOne(userId, id);
+  @UseGuards(AuthGuard)
+  @Get('received')
+  findAllForMe(@Request() req) {
+    return this.recognitionsService.findAllForMe(req['user'].userId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('team')
+  findAllTeamRecognition(@Request() req) {
+    return this.recognitionsService.findAllForMyTeam(req['user'].userId);
   }
 }
