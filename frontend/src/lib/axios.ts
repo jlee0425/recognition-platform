@@ -14,14 +14,14 @@ client.interceptors.request.use((req) => {
 
 client.interceptors.response.use(
   (res) => res,
-  async (err) => {
+  (err) => {
     if (err.response.status === 401) {
       cookies.remove('access_token');
       if (typeof window !== 'undefined') {
         window.location.href = '/login';
       }
     }
-    return await err;
+    return Promise.reject(err);
   }
 )
 

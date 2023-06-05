@@ -11,10 +11,12 @@ const useLoginMutation = () => {
   return useMutation(
     (input: LoginFormProps) => client.post('http://localhost:4000/auth/login', input),
     {
-      onSuccess: ({data}) => {
-        cookies.set('access_token', data.token);
-        router.replace('/employee');
-      }
+      onSuccess: (data) => {
+        if (data) {
+          cookies.set('access_token', data?.data?.token);
+          router.replace('/employee');
+        }
+      },
     }
   )
 };
