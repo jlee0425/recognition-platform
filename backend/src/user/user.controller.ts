@@ -1,19 +1,16 @@
-import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { UserService } from './user.service';
-import PublicRoute from 'src/utils/PublicRoute';
+import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
 import mock from 'src/__mock__/userProfile';
+import PublicRoute from 'src/utils/PublicRoute';
+import { UserService } from './user.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @UseGuards(AuthGuard)
   @Get()
-  getUsers() {
-    return this.userService.fetchUsers();
-  }
-
-  @Get('/:id')
-  getUser(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.fetchUser(id);
+  getUsers(@Request() req) {
+    return this.userService.fetchUsers(req['user'].userId);
   }
 
   @PublicRoute()

@@ -20,8 +20,8 @@ export class UserService {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  fetchUsers() {
-    return this.userRepository.find({
+  async fetchUsers(curUserId: number) {
+    const users = await this.userRepository.find({
       relations: ['profile', 'manager'],
       select: {
         id: true,
@@ -50,6 +50,8 @@ export class UserService {
         },
       },
     });
+
+    return users.filter((u) => u.id !== curUserId);
   }
 
   fetchUser(id: number) {
@@ -72,7 +74,7 @@ export class UserService {
   async updateUserManager(id: number) {
     const user = await this.userRepository.findOneBy({ id });
     const manager = await this.userRepository.findOneBy({
-      id: id < 16 ? id + 5 : id - 5,
+      id: id < 11 ? 15 : 1,
     });
 
     user.manager = manager;
