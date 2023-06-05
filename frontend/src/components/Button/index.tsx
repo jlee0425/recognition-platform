@@ -21,6 +21,10 @@ const secondary = css({
   color: '#ececec',
   backgroundColor: '#1556cf',
   borderColor: '#ececec',
+  '&[aria-disabled="true"]': {
+    opacity: 0.4,
+    pointerEvents: 'none'
+  }
 })
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>{

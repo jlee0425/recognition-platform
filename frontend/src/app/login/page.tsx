@@ -42,7 +42,7 @@ export type LoginFormProps = {
 const LoginPage = () => {
   const formMethods = useForm<LoginFormProps>();
   const { handleSubmit, setError, formState: { errors } } = formMethods;
-  const { mutate: login } = useLoginMutation();
+  const { mutate: login, isLoading } = useLoginMutation();
 
   const handleLogin = (v: LoginFormProps) => {
     login(v, {
@@ -62,7 +62,7 @@ const LoginPage = () => {
         <form css={loginCss.form} onSubmit={handleSubmit(handleLogin)}>
           <LoginInput label="username" />
           <LoginInput label="password" isPassword />
-          <Button label="LOGIN" type="submit" />
+          <Button label="LOGIN" type="submit" aria-disabled={isLoading}/>
           {errors?.username?.type === 'notFound' && (
             <p css={loginCss.error}>Incorrect username and/or password.</p>
           )}
