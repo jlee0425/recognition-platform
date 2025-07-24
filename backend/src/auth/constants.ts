@@ -1,5 +1,5 @@
 export const jwtConstants = {
-  secret: 'LIFERAY JAPAN K.K. Fullstack Consultant Assignment, by Jake Lee.',
+  secret: 'Some random secret to generate JWT',
 };
 
 export const IS_PUBLIC_ROUTE = 'isPublicRoute';

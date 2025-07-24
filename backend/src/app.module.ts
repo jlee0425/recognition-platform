@@ -21,7 +21,7 @@ import { RecognitionValue } from './typeorm/entities/RecognitionValue';
       port: 3306,
       username: 'root',
       password: 'admin',
-      database: 'liferay_assignment',
+      database: 'recognition_program',
       entities: [User, Profile, Recognition, RecognitionValue],
       synchronize: true,
     }),

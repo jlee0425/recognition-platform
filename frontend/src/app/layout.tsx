@@ -50,7 +50,7 @@ export default function RootLayout({
             width={120} 
             height={50} 
             css={rootLayout.logo} 
-            alt="liferay-logo"
+            alt="logo"
           />
           <LayoutHeader />
         </header>
